@@ -1,0 +1,139 @@
+/* ===== Efek Shine Rainbow + White ===== */
+.image-container::before,
+.image-container::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -150%;
+  width: 200%;
+  height: 160%;
+  pointer-events: none;
+  filter: blur(25px);
+  opacity: 0.8;
+  border-radius: 15px;
+}
+
+/* Lapisan Rainbow */
+.image-container::before {
+  background: linear-gradient(90deg,
+    rgba(255,0,0,0.25) 0%,
+    rgba(255,165,0,0.4) 25%,
+    rgba(0,255,0,0.4) 50%,
+    rgba(0,255,255,0.4) 75%,
+    rgba(0,0,255,0.3) 100%);
+  animation: rainbowShine 12s ease-in-out infinite;
+}
+
+/* Lapisan Putih */
+.image-container::after {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.3) 30%,
+    rgba(255,255,255,0.9) 50%,
+    rgba(255,255,255,0.3) 70%,
+    rgba(255,255,255,0) 100%);
+  animation: whiteShine 12s ease-in-out infinite;
+}
+
+/* ===== Keyframes Shine ===== */
+
+/* Efek rainbow (4s) lalu jeda */
+@keyframes rainbowShine {
+  0% { transform: translateX(-150%) scaleX(1.2); opacity: 0.9; }
+  30% { transform: translateX(150%) scaleX(1.2); opacity: 1; }
+  33% { opacity: 0; }
+  100% { opacity: 0; transform: translateX(150%); }
+}
+
+/* Efek putih dua kali + delay + arah bolak-balik */
+@keyframes whiteShine {
+  0% { transform: translateX(-150%) scaleX(1.5); opacity: 0; }
+  35% { transform: translateX(-150%) scaleX(1.5); opacity: 0; }
+
+  /* Putih 1.5s */
+  40% { transform: translateX(-150%) scaleX(1.5); opacity: 1; }
+  45% { transform: translateX(150%) scaleX(1.5); opacity: 1; }
+  46% { opacity: 0; }
+
+  /* Putih cepat 0.8s */
+  50% { transform: translateX(-150%) scaleX(1.5); opacity: 1; }
+  55% { transform: translateX(150%) scaleX(1.5); opacity: 1; }
+  56% { opacity: 0; }
+
+  /* Delay 5s */
+  80% { opacity: 0; }
+
+  /* Arah balik */
+  85% { transform: translateX(150%) scaleX(1.5); opacity: 1; }
+  90% { transform: translateX(-150%) scaleX(1.5); opacity: 1; }
+  91% { opacity: 0; }
+
+  100% { opacity: 0; }
+}
+
+/* ===== Efek Glow Luar-Dalam Sinkron ===== */
+@keyframes glowPulse {
+  0%, 5% {
+    box-shadow:
+      0 0 15px rgba(0,255,255,0.2),
+      0 0 30px rgba(0,255,255,0.1),
+      inset 0 0 10px rgba(0,255,255,0.15);
+  }
+  10%, 30% {
+    box-shadow:
+      0 0 25px rgba(255,0,150,0.4),
+      0 0 50px rgba(0,255,255,0.3),
+      inset 0 0 20px rgba(255,255,255,0.25);
+  }
+  40%, 55% {
+    box-shadow:
+      0 0 30px rgba(255,255,255,0.6),
+      0 0 60px rgba(0,200,255,0.4),
+      inset 0 0 30px rgba(255,255,255,0.3);
+  }
+  80% {
+    box-shadow:
+      0 0 20px rgba(0,255,255,0.25),
+      0 0 40px rgba(0,255,255,0.2),
+      inset 0 0 20px rgba(0,255,255,0.15);
+  }
+  100% {
+    box-shadow:
+      0 0 15px rgba(0,255,255,0.2),
+      inset 0 0 10px rgba(0,255,255,0.15);
+  }
+}
+
+/* Popup Detail */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.popup.active {
+  display: flex;
+}
+.popup-content {
+  background: rgba(10, 10, 30, 0.95);
+  border: 2px solid #0ff;
+  border-radius: 20px;
+  padding: 25px;
+  color: #fff;
+  text-align: center;
+  max-width: 400px;
+  animation: popupShow 0.5s ease;
+}
+@keyframes popupShow {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.popup-content img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
